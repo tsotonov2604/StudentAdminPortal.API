@@ -1,4 +1,6 @@
-﻿namespace StudentAdminPortal.API.DataModels
+﻿using StudentAdminPortal.API.DataModels;
+
+namespace StudentAdminPortal.API.DomainModels
 {
     public class Student
     {
