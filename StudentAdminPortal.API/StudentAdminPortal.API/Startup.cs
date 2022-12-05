@@ -23,6 +23,7 @@ namespace StudentAdminPortal.API
                     {
                         builder.WithOrigins("http://localhost:4200")
                         .AllowAnyHeader()
+                        .AllowAnyMethod()                     
                         .WithHeaders("GET", "POST", "PUT", "DELETE")
                         .WithExposedHeaders("*");
                     });
@@ -32,6 +33,7 @@ namespace StudentAdminPortal.API
             services.AddDbContext<StudentAdminContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("StudentAdminPortalDb")));
             services.AddScoped<IStudentRepository, SqlStudentRepository>();
+            services.AddScoped<IGenderRepository, SqlGenderRepository>();
 
             services.AddSwaggerGen(c =>
             {

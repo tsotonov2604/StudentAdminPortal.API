@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StudentAdminPortal.API.Commands;
 using StudentAdminPortal.API.DataModels;
 
 namespace StudentAdminPortal.API.Repositories
@@ -24,6 +25,25 @@ namespace StudentAdminPortal.API.Repositories
             return await context.Students
                 .Include(nameof(Gender))
                 .Include(nameof(Address)).ToListAsync();
+        }
+
+        public async Task<Student> UpdateStudent(Guid studentId, UpdateStudentCommand request)
+        {
+            var student = await context.Students.FindAsync(studentId);
+            if (student != null) {
+                student.FirstName = request.FirstName;
+                student.LastName = request.LastName;
+                student.Email = request.Email;
+                student.DateOfBirth = (DateTime)request.DateOfBirth;
+                student.Mobile = (long)request.Mobile;
+                student.GenderId = (Guid)request.GenderId;
+
+                
+                await context.SaveChangesAsync();
+                return student;
+            }
+            return null;
+            
         }
     }
 }

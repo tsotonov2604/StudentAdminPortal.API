@@ -1,4 +1,5 @@
-﻿using StudentAdminPortal.API.DataModels;
+﻿using StudentAdminPortal.API.Commands;
+using StudentAdminPortal.API.DataModels;
 
 namespace StudentAdminPortal.API.Repositories
 {
@@ -6,5 +7,6 @@ namespace StudentAdminPortal.API.Repositories
     {
         Task <List<Student>> GetStudentsAsync();
         Task<Student> GetStudentAsync(Guid studentId);
+        Task<Student> UpdateStudent(Guid studentId, UpdateStudentCommand request);
     }
 }

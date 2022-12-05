@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
+using StudentAdminPortal.API.Commands;
 using StudentAdminPortal.API.DomainModels;
 using StudentAdminPortal.API.Repositories;
 
@@ -39,5 +40,23 @@ namespace StudentAdminPortal.API.Controllers
 
             return Ok(mapper.Map<Student>(student));
         }
+
+        [HttpPut]
+        [Route("students/{studentId:guid}")]
+        public async Task<IActionResult> UpdateStudentAsync([FromRoute] Guid studentId, [FromBody] UpdateStudentCommand request)
+        {
+            var student = await studentRepository.UpdateStudent(studentId, request);
+
+            if (student == null)
+            {
+                return NotFound();
+            }
+            else {
+                return Ok(mapper.Map<Student>(student));
+            }
+    
+        }
+
+
     }
 }
