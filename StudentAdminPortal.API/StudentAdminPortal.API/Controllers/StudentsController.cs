@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using StudentAdminPortal.API.Commands;
+using StudentAdminPortal.API.DataModels;
 using StudentAdminPortal.API.DomainModels;
 using StudentAdminPortal.API.Repositories;
+using Student = StudentAdminPortal.API.DomainModels.Student;
 
 namespace StudentAdminPortal.API.Controllers
 {
@@ -57,6 +59,16 @@ namespace StudentAdminPortal.API.Controllers
     
         }
 
+        [HttpDelete]
+        [Route("students/{studentId:guid}")]
+        public async Task<IActionResult> DeleteStudentAsync([FromRoute] Guid studentId) {
+            if (studentId == null)
+            {
+                return NotFound();
+            }
 
+            var student = await studentRepository.DeleteStudent(studentId);
+            return Ok(mapper.Map<Student>(student));
+        }
     }
 }

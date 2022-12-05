@@ -13,6 +13,8 @@ namespace StudentAdminPortal.API.Repositories
             this.context = context;
         }
 
+       
+
         public async Task<Student> GetStudentAsync(Guid studentId)
         {
             return await context.Students
@@ -45,5 +47,20 @@ namespace StudentAdminPortal.API.Repositories
             return null;
             
         }
+        public async Task<Student> DeleteStudent(Guid studentId)
+        {
+            var student = await context.Students.FindAsync(studentId);
+
+            if (student != null)
+            {
+                context.Students.Remove(student);
+                await context.SaveChangesAsync();
+                return student;
+            }
+           
+            return null;
+            
+        }
+
     }
 }
