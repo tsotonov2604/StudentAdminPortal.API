@@ -70,5 +70,22 @@ namespace StudentAdminPortal.API.Controllers
             var student = await studentRepository.DeleteStudent(studentId);
             return Ok(mapper.Map<Student>(student));
         }
+
+        [HttpPost]
+        [Route("students/add")]
+        public async Task<IActionResult> CreateStudentAsync([FromBody] CreateStudentCommand request)
+        {
+            var student = await studentRepository.CreateStudent(request);
+
+            if (student == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(mapper.Map<Student>(student));
+            }
+
+        }
     }
 }

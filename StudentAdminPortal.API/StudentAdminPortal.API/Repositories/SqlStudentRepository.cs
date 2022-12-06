@@ -47,6 +47,29 @@ namespace StudentAdminPortal.API.Repositories
             return null;
             
         }
+        public async Task<Student> CreateStudent(CreateStudentCommand request)
+        {
+            var student = new Student()
+            {
+                Id = Guid.NewGuid(),
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Email = request.Email,
+                DateOfBirth = (DateTime)request.DateOfBirth,
+                Mobile = (long)request.Mobile,
+                GenderId = (Guid)request.GenderId
+            };
+
+            if (student != null) {
+                context.Add(student);
+                await context.SaveChangesAsync();
+                return student;
+            }
+
+            return null;
+               
+        }
+
         public async Task<Student> DeleteStudent(Guid studentId)
         {
             var student = await context.Students.FindAsync(studentId);

@@ -9,5 +9,6 @@ namespace StudentAdminPortal.API.Repositories
         Task<Student> GetStudentAsync(Guid studentId);
         Task<Student> UpdateStudent(Guid studentId, UpdateStudentCommand request);
         Task<Student> DeleteStudent(Guid studentId);
+        Task<Student> CreateStudent(CreateStudentCommand request);
     }
 }
